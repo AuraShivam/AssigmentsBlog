@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🔄 Search in Rotated Sorted Array II | Assignment Solution Blog</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 18px;
+      line-height: 1.7;
+      background: #181c24;
+      color: #fff;
+    }
+    h1 {
+      color: #00e6d3;
+      font-size: 2.3em;
+      background: #222436;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      border-bottom: 2px solid #00e6d3;
+    }
+    h2 {
+      color: #f1c40f;
+      margin-top: 36px;
+      font-size: 1.45em;
+      border-left: 4px solid #f1c40f;
+      padding-left: 7px;
+    }
+    .highlight {
+      background: #242b38;
+      border: 1px solid #444864;
+      border-radius: 8px;
+      padding: 13px;
+      margin-bottom: 22px;
+      font-size: 1.08em;
+      color: #b0e2ff;
+    }
+    nav {
+      margin-bottom: 30px;
+      background: linear-gradient(90deg, #25233a 20%, #232a32 80%);
+      padding: 15px 12px;
+      border-radius: 7px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      box-shadow: 0 2px 8px #181b2299;
+    }
+    nav a {
+      color: #44fff8;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: 500;
+      font-size: 1.06em;
+      border-bottom: 2px solid transparent;
+      transition: border 0.18s, color 0.18s;
+    }
+    nav a.home {
+      color: #ffe082;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: #f1c40f;
+      border-bottom: 2.2px solid #f1c40f;
+    }
+    ul {
+      margin-top: 8px;
+      padding-left: 22px;
+    }
+    li {
+      margin-bottom: 11px;
+      font-size: 1.09em;
+    }
+    .emoji {
+      font-size: 1.15em;
+      margin-right: 7px;
+      vertical-align: -1px;
+    }
+    .solution-list li {
+      background: #21252d;
+      margin-bottom: 13px;
+      border-radius: 6px;
+      padding: 5px 12px;
+      transition: background 0.19s;
+    }
+    .solution-list li:hover {
+      background: #252c3a;
+    }
+    .solution-list a {
+      color: #37ff8b;
+      font-weight: 500;
+      font-size: 1.06em;
+      text-shadow: 0 1px 2px #111;
+    }
+    .solution-list a:hover {
+      color: #00e6d3;
+      text-decoration: underline;
+    }
+    footer {
+      margin-top: 55px;
+      font-size: 0.98em;
+      color: #bbb;
+      text-align: center;
+      padding-bottom: 10px;
+    }
+    @media (max-width: 650px) {
+      body { padding: 0 2px; }
+      h1 { font-size: 1.27em; }
+      nav { font-size: 0.98em; padding: 10px 4px; }
+      .solution-list li { padding: 5px 5px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="home">🏠 Home</a>
+    <a href="question1.html">1️⃣</a>
+    <a href="question2.html">2️⃣</a>
+    <a href="question3.html">3️⃣</a>
+    <a href="question4.html">4️⃣</a>
+    <a href="question5.html">5️⃣</a>
+  </nav>
+
+  <h1>🔄 Search in Rotated Sorted Array II</h1>
+  <div class="highlight">
+    <strong>Difficulty:</strong> <span class="emoji">🌙 Medium</span>
+  </div>
+  
+  <h2>📋 Problem Summary</h2>
+  <p>
+    Given a rotated sorted array with duplicates, determine if a target exists using a modified binary search.
+  </p>
+
+  <h2>📝 Approach</h2>
+  <p>
+    Use binary search with duplicate skipping to decide which half is sorted, reducing search space.
+  </p>
+
+  <h2>💻 C++ Solution</h2>
+  <pre><code>
+class Solution {
+public:
+    bool search(vector&lt;int&gt;&amp; nums, int target) {
+        int left = 0, right = nums.size() - 1;
+        
+        while (left &lt;= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) return true;
+            
+            if (nums[left] == nums[mid] && nums[mid] == nums[right]) {
+                ++left;
+                --right;
+            } else if (nums[left] &lt;= nums[mid]) {
+                if (nums[left] &lt;= target &amp;&amp; target &lt; nums[mid]) right = mid - 1;
+                else left = mid + 1;
+            } else {
+                if (nums[mid] &lt; target &amp;&amp; target &lt;= nums[right])
