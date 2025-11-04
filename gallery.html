@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Uploaded Images Gallery</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="home">🏠 Home</a>
+    <a href="question1.html">1</a>
+    <a href="question2.html">2</a>
+    <a href="question3.html">3</a>
+    <a href="question4.html">4</a>
+    <a href="question5.html">5</a>
+  </nav>
+  <h1>Uploaded Images Gallery</h1>
+  <div id="gallery"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const gallery = document.getElementById('gallery');
+      let images = JSON.parse(localStorage.getItem('uploadedImages') || '[]');
+      if(images.length === 0) {
+        gallery.innerHTML = "<p>No images uploaded yet.</p>";
+        return;
+      }
+      images.forEach(dataUrl => {
+        const img = document.createElement('img');
+        img.src = dataUrl;
+        gallery.appendChild(img);
+      });
+    });
+  </script>
+  <footer>
+    &copy; 2025 Assignment Solution Blog — <span class="emoji">🔑</span> All uploaded images for this session.
+  </footer>
+</body>
+</html>

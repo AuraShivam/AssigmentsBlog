@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🟦 367. Valid Perfect Square | Assignment Solution Blog</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="home">🏠 Home</a>
+    <a href="question1.html">1️⃣</a>
+    <a href="question2.html">2️⃣</a>
+    <a href="question3.html">3️⃣</a>
+    <a href="question4.html">4️⃣</a>
+    <a href="question5.html">5️⃣</a>
+  </nav>
+  <a href="gallery.html" class="gallery-button">📸 View Uploaded Images</a>
+  <h1>🟦 367. Valid Perfect Square</h1>
+  <div class="highlight">
+    <strong>Difficulty:</strong> <span class="emoji">✨ Easy</span>
+  </div>
+
+  <h2>❓ Question</h2>
+  <div class="highlight" style="background:#222436;">
+    <p>
+      Given a positive integer <b>num</b>, return true if num is a <b>perfect square</b>, false otherwise.<br>
+      A perfect square is the product of an integer with itself.<br>
+      <b>You must not use any built-in library function, such as sqrt.</b>
+    </p>
+    <pre><strong>Example 1:</strong>
+Input: num = 16
+Output: true
+Explanation: 4 * 4 = 16 and 4 is an integer.
+
+<strong>Example 2:</strong>
+Input: num = 14
+Output: false
+Explanation: 3.742 * 3.742 = 14 and 3.742 is not an integer.
+</pre>
+    <p><strong>Constraints:</strong><br>
+      1 &lt;= num &lt;= 2<sup>31</sup> - 1
+    </p>
+  </div>
+
+  <h2>💡 Intuition</h2>
+  <div class="highlight">
+    Use binary search to check for an integer whose square equals num.
+  </div>
+  <h2>🔎 Approach</h2>
+  <div class="highlight">
+    <ol>
+      <li>Initialize search space as <code>[1, num]</code></li>
+      <li>For each integer <code>mid</code> in the range, compute <code>mid * mid</code></li>
+      <li>If <code>mid * mid == num</code>, return true</li>
+      <li>If <code>mid * mid &lt; num</code>, search right half; else search left half</li>
+    </ol>
+    <b>Time Complexity:</b> O(log n)<br>
+    <b>Space Complexity:</b> O(1)
+  </div>
+
+  <div class="code-label"><span class="emoji">💻</span> <strong>C++ Solution</strong></div>
+  <div class="code-highlight">
+<pre><code>class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        long left = 1, right = num;
+        while (left &lt;= right) {
+            long mid = left + (right - left) / 2;
+            long sq = mid * mid;
+            if (sq == num) return true;
+            else if (sq &lt; num) left = mid + 1;
+            else right = mid - 1;
+        }
+        return false;
+    }
+};
+</code></pre>
+</div>
+
+  <h2>Upload Images</h2>
+  <label for="imageUploadInput" class="upload-button">📷 Upload Image</label>
+  <input type="file" id="imageUploadInput" accept="image/*" multiple style="display:none;" />
+  <div id="uploadedImages"></div>
+  <footer>
+    &copy; 2025 Assignment Solution Blog — <span class="emoji">🔑</span> Algorithm mastery in C++.
+  </footer>
+  <script src="uploadPhotos.js"></script>
+</body>
+</html>

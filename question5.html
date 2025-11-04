@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>➕ 67. Add Binary | Assignment Solution Blog</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="home">🏠 Home</a>
+    <a href="question1.html">1️⃣</a>
+    <a href="question2.html">2️⃣</a>
+    <a href="question3.html">3️⃣</a>
+    <a href="question4.html">4️⃣</a>
+    <a href="question5.html">5️⃣</a>
+  </nav>
+  <a href="gallery.html" class="gallery-button">📸 View Uploaded Images</a>
+  <h1>➕ 67. Add Binary</h1>
+  <div class="highlight">
+    <strong>Difficulty:</strong> <span class="emoji">✨ Easy</span>
+  </div>
+
+  <h2>❓ Question</h2>
+  <div class="highlight" style="background:#222436;">
+    <p>Given two binary strings <b>a</b> and <b>b</b>, return their sum as a binary string.</p>
+    <pre><strong>Example 1:</strong>
+Input: a = "11", b = "1"
+Output: "100"
+
+<strong>Example 2:</strong>
+Input: a = "1010", b = "1011"
+Output: "10101"
+</pre>
+    <p><strong>Constraints:</strong><br>
+      1 &lt;= a.length, b.length &lt;= 10<sup>4</sup><br>
+      a and b consist only of '0' or '1'.<br>
+      Each string does not contain leading zeros except for the zero itself.
+    </p>
+  </div>
+
+  <h2>💡 Intuition</h2>
+  <div class="highlight">
+    Simulate the addition process as in elementary math, but with base 2.
+  </div>
+  <h2>🔎 Approach</h2>
+  <div class="highlight">
+    <ol>
+      <li>Add corresponding bits from right to left, including carry.</li>
+      <li>If sum &gt;= 2, set carry for next iteration.</li>
+      <li>Reverse the result for proper order.</li>
+    </ol>
+    <b>Time Complexity:</b> O(max(a.length, b.length))<br>
+    <b>Space Complexity:</b> O(max(a.length, b.length)) for result
+  </div>
+
+  <div class="code-label"><span class="emoji">💻</span> <strong>C++ Solution</strong></div>
+  <div class="code-highlight">
+<pre><code>class Solution {
+public:
+    string addBinary(string a, string b) {
+        int i = a.size() - 1, j = b.size() - 1, carry = 0;
+        string result;
+        while (i &gt;= 0 || j &gt;= 0 || carry) {
+            int sum = carry;
+            if (i &gt;= 0) sum += a[i--] - '0';
+            if (j &gt;= 0) sum += b[j--] - '0';
+            carry = sum / 2;
+            result.push_back((sum % 2) + '0');
+        }
+        reverse(result.begin(), result.end());
+        return result;
+    }
+};
+</code></pre>
+</div>
+
+  <h2>Upload Images</h2>
+  <label for="imageUploadInput" class="upload-button">📷 Upload Image</label>
+  <input type="file" id="imageUploadInput" accept="image/*" multiple style="display:none;" />
+  <div id="uploadedImages"></div>
+  <footer>
+    &copy; 2025 Assignment Solution Blog — <span class="emoji">🔑</span> Algorithm mastery in C++.
+  </footer>
+  <script src="uploadPhotos.js"></script>
+</body>
+</html>
